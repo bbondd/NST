@@ -2,15 +2,13 @@ import tensorflow as tf
 from tensorflow.python import keras as kr
 from tensorflow.python.keras.preprocessing import image
 import numpy as np
-import sys
 
+iteration_size = 1000
+content_weight = 0.01
+style_weight = 1.0
 
-# python TFNST.py iteration_size content_weight style_weight content_path style_path0 style_path1...
-iteration_size = int(sys.argv[1])
-content_weight = float(sys.argv[2])
-style_weight = float(sys.argv[3])
-content_path = sys.argv[4]
-style_paths = sys.argv[5:]
+content_path = './pictures/content.jpg'
+style_paths = ['./pictures/style1.jpg']
 
 style_weight /= len(style_paths)
 
@@ -62,13 +60,6 @@ def get_model():
     return model
 
 
-def gram_matrix(input_tensor):
-    x = tf.reshape(input_tensor, [-1, input_tensor.shape[-1]])
-    n = x.shape[0]
-    gram = tf.matmul(x, x, transpose_a=True)
-    return gram / tf.cast(n, tf.float32)
-
-
 def get_feature_representations(model):
     style_features_group = []
     for style_array in style_arrays:
@@ -93,7 +84,7 @@ def get_gradient(model, combined_array, style_features_group, content_features):
 
         for style_features in style_features_group:
             for style_feature, comb_style in zip(style_features, combined_style_features):
-                style_loss += tf.reduce_mean(tf.square(gram_matrix(style_feature) - gram_matrix(comb_style)))
+                style_loss += style_distance(style_feature, comb_style)
 
         for target_content, comb_content in zip(content_features, combined_content_features):
             content_loss += tf.reduce_mean(tf.square(comb_content[0], target_content))
@@ -101,6 +92,84 @@ def get_gradient(model, combined_array, style_features_group, content_features):
         loss = style_loss * style_weight + content_loss * content_weight
 
     return tape.gradient(loss, combined_array)
+
+
+def gram_matrix(input_tensor):
+    x = tf.reshape(input_tensor, [-1, input_tensor.shape[-1]])
+    n = x.shape[0]
+    gram = tf.matmul(x, x, transpose_a=True)
+    gram / tf.cast(n, tf.float32)
+
+    return tf.reshape(gram, [-1])
+
+
+def channel_wise_mean_matrix(input_tensor):
+    x = tf.reshape(input_tensor, [-1, input_tensor.shape[-1]])
+    x = tf.reduce_mean(x, axis=0)
+
+    return x
+
+
+def euclidean_distance(a, b):
+    return tf.reduce_mean(tf.square(style_matrix(a) - style_matrix(b)))
+
+
+def reversed_euclidean_distance(a, b):
+    return -euclidean_distance(a, b)
+
+
+def minskowki_distance(a, b):
+    return tf.reduce_mean(tf.abs(style_matrix(a) - style_matrix(b)))
+
+
+def js_divergence(a, b):
+    a, b = style_matrix(a), style_matrix(b)
+    a = tf.reshape(a, [-1]) / tf.reduce_sum(a) + 0.001
+    b = tf.reshape(b, [-1]) / tf.reduce_sum(b) + 0.001
+    m = (a + b) / 2
+
+    return tf.reduce_mean(a * tf.log(a / m) + b * tf.log(b / m))
+
+
+def pearson_x2(x, y):
+    x, y = style_matrix(x), style_matrix(y)
+
+    x_average = tf.reduce_mean(x)
+    y_average = tf.reduce_mean(y)
+    x_variance = tf.reduce_mean(tf.square(x - x_average))
+    y_variance = tf.reduce_mean(tf.square(y - y_average))
+
+    covariance = tf.reduce_sum((x - x_average) * (y - y_average))
+
+    return -covariance / tf.sqrt(x_variance * y_variance)
+
+
+def reverse_pearson_x2(x, y):
+    return -pearson_x2(x, y)
+
+
+def squared_hellinger_distance(x, y):
+    x, y = style_matrix(x), style_matrix(y)
+
+    x_average = tf.reduce_mean(x)
+    y_average = tf.reduce_mean(y)
+    x_variance = tf.reduce_mean(tf.square(x - x_average))
+    y_variance = tf.reduce_mean(tf.square(y - y_average))
+    x_deviation = tf.sqrt(x_variance)
+    y_deviation = tf.sqrt(y_variance)
+
+    distance = 1 - tf.sqrt(2 * x_deviation * y_deviation / (x_variance + y_variance)) * \
+               tf.exp(-0.25 * tf.square(x_average - y_average) / (x_variance + y_variance))
+
+    return distance * 10000000
+
+
+def reversed_squared_hellinger_distance(x, y):
+    return -squared_hellinger_distance(x, y)
+
+
+style_matrix = gram_matrix
+style_distance = reversed_euclidean_distance
 
 
 def main():
@@ -111,12 +180,13 @@ def main():
     combined_array = tf.contrib.eager.Variable(np.expand_dims(content_array, axis=0), dtype=tf.float32)
 
     for i in range(iteration_size):
-        gradients = get_gradient(model, combined_array, style_features_group, content_features)
-        optimizer.apply_gradients([(gradients, combined_array)])
-
         if i % 50 == 0:
+            print(i)
             image.save_img(x=image.array_to_img(deprocess_image(combined_array.numpy()[0])),
                            path='./combined/combine%d.jpg' % i)
+
+        gradients = get_gradient(model, combined_array, style_features_group, content_features)
+        optimizer.apply_gradients([(gradients, combined_array)])
 
 
 main()

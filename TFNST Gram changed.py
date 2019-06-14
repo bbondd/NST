@@ -2,19 +2,7 @@ import tensorflow as tf
 from tensorflow.python import keras as kr
 from tensorflow.python.keras.preprocessing import image
 import numpy as np
-import sys
-
-
-# python TFNST.py iteration_size content_weight style_weight content_path style_path0 style_path1...
-iteration_size = int(sys.argv[1])
-content_weight = float(sys.argv[2])
-style_weight = float(sys.argv[3])
-content_path = sys.argv[4]
-style_paths = sys.argv[5:]
-
-style_weight /= len(style_paths)
-
-tf.enable_eager_execution()
+import tensorflow_probability as tfp
 
 
 def load_and_process_image(path):
@@ -22,22 +10,8 @@ def load_and_process_image(path):
     return kr.applications.vgg19.preprocess_input(image_array)
 
 
-content_array = load_and_process_image(content_path)
-style_arrays = [load_and_process_image(style_path) for style_path in style_paths]
-
-
-content_layers = ['block5_conv2']
-style_layers = ['block1_conv1',
-                'block2_conv1',
-                'block3_conv1',
-                'block4_conv1',
-                'block5_conv1',]
-
-optimizer = tf.train.AdamOptimizer(learning_rate=3, beta1=0.99, epsilon=1e-1)
-
-
 def deprocess_image(image_array):
-    x = image_array
+    x = np.array(image_array)
     x[:, :, 0] += 103.939
     x[:, :, 1] += 116.779
     x[:, :, 2] += 123.68
@@ -69,6 +43,20 @@ def gram_matrix(input_tensor):
     return gram / tf.cast(n, tf.float32)
 
 
+def channel_wise_mean_matrix(input_tensor):
+    x = tf.reshape(input_tensor, [-1, input_tensor.shape[-1]])
+    x = tf.reduce_mean(x, axis=0)
+
+    return x
+
+
+def triple_gram_matrix(input_tensor):   # memory exceed
+    x = tf.reshape(input_tensor, [-1, input_tensor.shape[-1]])
+    temp = tf.einsum('ab,ac->bca', x, x)
+    x = tf.einsum('abc,cd->abd', temp, x)
+    return x
+
+
 def get_feature_representations(model):
     style_features_group = []
     for style_array in style_arrays:
@@ -82,6 +70,10 @@ def get_feature_representations(model):
     return style_features_group, content_features
 
 
+def mean_squared_error(a, b):
+    return tf.square(style_matrix(a) - style_matrix(b))
+
+
 def get_gradient(model, combined_array, style_features_group, content_features):
     with tf.GradientTape() as tape:
         model_outputs = model(combined_array)
@@ -93,7 +85,7 @@ def get_gradient(model, combined_array, style_features_group, content_features):
 
         for style_features in style_features_group:
             for style_feature, comb_style in zip(style_features, combined_style_features):
-                style_loss += tf.reduce_mean(tf.square(gram_matrix(style_feature) - gram_matrix(comb_style)))
+                style_loss += tf.reduce_mean(style_distance(style_feature, comb_style))
 
         for target_content, comb_content in zip(content_features, combined_content_features):
             content_loss += tf.reduce_mean(tf.square(comb_content[0], target_content))
@@ -103,20 +95,59 @@ def get_gradient(model, combined_array, style_features_group, content_features):
     return tape.gradient(loss, combined_array)
 
 
+content_path = './pictures/content.jpg'
+style_paths = ['./pictures/style1.jpg']
+
+content_array = load_and_process_image(content_path)
+style_arrays = [load_and_process_image(style_path) for style_path in style_paths]
+
+
+content_layers = ['block5_conv2']
+style_layers = ['block1_conv1',
+                'block2_conv1',
+                'block3_conv1',
+                'block4_conv1',
+                'block5_conv1',]
+
+
+iteration_size = 1500
+content_weight = 0.01
+style_weight = 1.0
+style_weight /= len(style_paths)
+
+style_matrix = gram_matrix
+style_distance = mean_squared_error
+
+#part_kernel_size = 400
+part_kernel_size = content_array.shape[0]
+part_stride = 300
+
+
+optimizer = tf.train.AdamOptimizer(learning_rate=5, beta1=0.99, epsilon=1e-1)
+
+
 def main():
+    tf.enable_eager_execution()
     model = get_model()
 
     style_features_group, content_features = get_feature_representations(model)
 
-    combined_array = tf.contrib.eager.Variable(np.expand_dims(content_array, axis=0), dtype=tf.float32)
+    combined_array = content_array
 
     for i in range(iteration_size):
-        gradients = get_gradient(model, combined_array, style_features_group, content_features)
-        optimizer.apply_gradients([(gradients, combined_array)])
-
         if i % 50 == 0:
-            image.save_img(x=image.array_to_img(deprocess_image(combined_array.numpy()[0])),
+            print(i)
+            image.save_img(x=image.array_to_img(deprocess_image(combined_array)),
                            path='./combined/combine%d.jpg' % i)
 
+        for row in range(0, combined_array.shape[0], part_stride):
+            for col in range(0, combined_array.shape[1], part_stride):
+                part_array = tf.Variable(np.expand_dims(combined_array
+                                                        [row: row + part_kernel_size, col: col + part_kernel_size],
+                                                        axis=0), dtype=tf.float32)
+                gradients = get_gradient(model, part_array, style_features_group, content_features)
+                optimizer.apply_gradients([(gradients, part_array)])
+
+                combined_array[row: row + part_kernel_size, col: col + part_kernel_size] = part_array.numpy()[0]
 
 main()
