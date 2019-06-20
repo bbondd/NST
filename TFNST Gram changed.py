@@ -2,7 +2,6 @@ import tensorflow as tf
 from tensorflow.python import keras as kr
 from tensorflow.python.keras.preprocessing import image
 import numpy as np
-import tensorflow_probability as tfp
 
 
 def load_and_process_image(path):

@@ -8,7 +8,7 @@ content_weight = 0.01
 style_weight = 1.0
 
 content_path = './pictures/content.jpg'
-style_paths = ['./pictures/style1.jpg']
+style_paths = ['./pictures/style2.jpg']
 
 style_weight /= len(style_paths)
 
@@ -115,7 +115,7 @@ def euclidean_distance(a, b):
 
 
 def reversed_euclidean_distance(a, b):
-    return -euclidean_distance(a, b)
+    return euclidean_distance(-a, b)
 
 
 def minskowki_distance(a, b):
@@ -128,7 +128,7 @@ def js_divergence(a, b):
     b = tf.reshape(b, [-1]) / tf.reduce_sum(b) + 0.001
     m = (a + b) / 2
 
-    return tf.reduce_mean(a * tf.log(a / m) + b * tf.log(b / m))
+    return tf.reduce_mean(a * tf.log(a / m) + b * tf.log(b / m)) * 1000000000000
 
 
 def pearson_x2(x, y):
@@ -169,7 +169,7 @@ def reversed_squared_hellinger_distance(x, y):
 
 
 style_matrix = gram_matrix
-style_distance = reversed_euclidean_distance
+style_distance = euclidean_distance
 
 
 def main():
