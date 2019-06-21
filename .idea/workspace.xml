@@ -13,8 +13,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NST.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="159" lean-forward="true" selection-end-line="209" />
+            <state relative-caret-position="4524">
+              <caret line="159" selection-end-line="209" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -25,8 +25,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/NST v2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="166" column="23" selection-start-line="166" selection-start-column="23" selection-end-line="166" selection-end-column="23" />
+            <state relative-caret-position="4350">
+              <caret line="150" column="37" selection-start-line="150" selection-start-column="37" selection-end-line="150" selection-end-column="37" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -154,7 +154,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-11" />
+    <option name="x" value="1909" />
     <option name="width" value="1940" />
     <option name="height" value="2171" />
   </component>
@@ -169,11 +169,6 @@
             <path>
               <item name="NST" type="b2602c69:ProjectViewProjectNode" />
               <item name="NST" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NST" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NST" type="462c0819:PsiDirectoryNode" />
-              <item name="combined" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="NST" type="b2602c69:ProjectViewProjectNode" />
@@ -338,23 +333,23 @@
       <workItem from="1560945058960" duration="141000" />
       <workItem from="1560945220000" duration="8640000" />
       <workItem from="1560953925935" duration="23000" />
-      <workItem from="1561019991435" duration="1797000" />
+      <workItem from="1561019991435" duration="3099000" />
+      <workItem from="1561124549972" duration="598000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68519000" />
+    <option name="totallyTimeSpent" value="70419000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1293" height="1447" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="0" width="1294" height="1448" extended-state="1" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27407408" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28125" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27423167" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.27423167" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39937353" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -364,7 +359,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32811275" />
-      <window_info anchor="bottom" id="Python Console" order="12" weight="0.32498044" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="12" visible="true" weight="0.32440946" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -467,15 +462,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pictures/contentwq.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pictures/content1.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/combined/combine0.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/pictures/contentwq.jpg" />
+    <entry file="file://$PROJECT_DIR$/pictures/content1.jpg" />
+    <entry file="file://$PROJECT_DIR$/combined/combine0.jpg" />
     <entry file="file://$PROJECT_DIR$/pictures/Style8.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -533,6 +522,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/NST.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4524">
+          <caret line="159" selection-end-line="209" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pictures/content.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -578,20 +577,10 @@
     <entry file="file://$PROJECT_DIR$/pictures/style6.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/NST.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="159" lean-forward="true" selection-end-line="209" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/NST v2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="166" column="23" selection-start-line="166" selection-start-column="23" selection-end-line="166" selection-end-column="23" />
+        <state relative-caret-position="4350">
+          <caret line="150" column="37" selection-start-line="150" selection-start-column="37" selection-end-line="150" selection-end-column="37" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>

@@ -134,7 +134,7 @@ class StyleDistance(object):
         return distance * 10000000
 
     @staticmethod
-    def pearson_x2(x, y):
+    def pearson(x, y):
         x, y = style_matrix(x), style_matrix(y)
 
         x_average = tf.reduce_mean(x)
@@ -147,16 +147,21 @@ class StyleDistance(object):
         return -covariance / tf.sqrt(x_variance * y_variance)
 
     @staticmethod
-    def reverse_pearson_x2(x, y):
-        return -StyleDistance.pearson_x2(x, y)
+    def reverse_pearson(x, y):
+        return -StyleDistance.pearson(x, y)
 
 
-iteration_size = 1000
-content_weight = 0.01
-style_weight = 1.0
+print('iteration size : ')
+iteration_size = int(input())
+print('content weight :')
+content_weight = float(input())
+print('style weight :')
+style_weight = float(input())
 
-content_path = './pictures/content.jpg'
-style_paths = ['./pictures/style2.jpg']
+print('content path :')
+content_path = input()
+print('style paths (split by blank):')
+style_paths = input().split(' ')
 
 style_weight /= len(style_paths)
 
