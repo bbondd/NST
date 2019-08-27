@@ -6,7 +6,7 @@ Based on Image Style Transfer Using Convolutional Neural Networks
 Leon A. Gatys, Alexander S. Ecker, Matthias Bethge
 http://openaccess.thecvf.com/content_cvpr_2016/papers/Gatys_Image_Style_Transfer_CVPR_2016_paper.pdf
 
-NST Presentation.pptx is the presentation file
+NST Presentation.pptx is the presentation file_________
 
 
 Base algorithm
