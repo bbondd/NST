@@ -17,43 +17,34 @@ Base style image
 
 ![style](./results/style.png)
 
-asdf
+![gram](./results/gram_matrix.png)
 
+![channel](./results/channel-wise_mean_matrix.png)
 
+![js](./results/js_divergence.png)
 
-![gram](./results/gram matrix.png)
-asdf
+![minskowki](./results/minskowki_distance.png)
 
-
-
-![channel](./results/channel-wise mean matrix.png)
-asdf
-
-
-
-![js](./results/js divergence.png)
-.
-![minskowki](./results/minskowki distance.png)
 
 
 with multiple styles
 
 ![4style](./results/4style.png)
 
-![4style result](./results/4style results.png)
+![4style result](./results/4style_results.png)
 
 
 with pearson positive and negative
 
-![style](./results/noise style.png)
+![style](./results/noise_style.png)
 
-![style](./results/noise positive.png)
+![style](./results/noise_positive.png)
 
-![style](./results/noise negative.png)
+![style](./results/noise_negative.png)
 you can see the image is tring to avoid noise pattern
 
-![style](./results/Rectangle Style.png)
+![style](./results/Rectangle_Style.png)
 
-![style](./results/Rectangle negative.png)
+![style](./results/Rectangle_negative.png)
 
 
