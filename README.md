@@ -17,11 +17,20 @@ Base style image
 
 ![style](./results/style.png)
 
-.
+asdf
+
+
+
 ![gram](./results/gram matrix.png)
-.
+asdf
+
+
+
 ![channel](./results/channel-wise mean matrix.png)
-.
+asdf
+
+
+
 ![js](./results/js divergence.png)
 .
 ![minskowki](./results/minskowki distance.png)
