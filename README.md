@@ -29,9 +29,9 @@ Base style image
 
 with multiple styles
 
-![4style](./results/4style.png)
+![4style](./results/4styles.png)
 
-![4style result](./results/4style_results.png)
+![4style result](./results/4styles_results.png)
 
 
 with pearson positive and negative
@@ -41,6 +41,7 @@ with pearson positive and negative
 ![style](./results/noise_positive.png)
 
 ![style](./results/noise_negative.png)
+
 you can see the image is tring to avoid noise pattern
 
 ![style](./results/Rectangle_Style.png)
