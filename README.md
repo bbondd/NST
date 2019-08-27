@@ -1,7 +1,10 @@
 # NST
 Multi NST
 
-Neural Style Transfer with multiple styles and metric
+Neural Style Transfer with multiple styles, various metric, two content matrix.
+Change style loss metric(style loss) and content matrix(content loss) to make different images.
+Style loss from multiple style images to develop multiple styles in content image.
+
 Based on Image Style Transfer Using Convolutional Neural Networks
 Leon A. Gatys, Alexander S. Ecker, Matthias Bethge
 http://openaccess.thecvf.com/content_cvpr_2016/papers/Gatys_Image_Style_Transfer_CVPR_2016_paper.pdf
