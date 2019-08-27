@@ -22,6 +22,9 @@ Base style image
 
 ![style](./results/style.png)
 
+
+These are the examples of different content matrix and style distance metric(Style loss)
+
 ![gram](./results/gram_matrix.png)
 
 ![channel](./results/channel-wise_mean_matrix.png)
