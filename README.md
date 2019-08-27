@@ -62,6 +62,7 @@ You can see the image is tring to avoid noise pattern
 ![style](./results/rectangle_style.png)
 
 ![style](./results/rectangle_negative.png)
+
 Image is tring to avoid rectangular pattern.
 
 
