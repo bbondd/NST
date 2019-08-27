@@ -35,14 +35,14 @@ These are the examples of different content matrix and style distance metric(Sty
 
 
 
-with multiple styles
+With multiple styles
 
 ![4style](./results/4styles.png)
 
 ![4style result](./results/4styles_result.png)
 
 
-with pearson positive and negative
+With pearson positive and negative distance
 
 ![style](./results/noise_style.png)
 
@@ -50,7 +50,7 @@ with pearson positive and negative
 
 ![style](./results/noise_negative.png)
 
-you can see the image is tring to avoid noise pattern
+You can see the image is tring to avoid noise pattern
 
 ![style](./results/rectangle_style.png)
 
