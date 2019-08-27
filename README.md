@@ -31,7 +31,7 @@ with multiple styles
 
 ![4style](./results/4styles.png)
 
-![4style result](./results/4styles_results.png)
+![4style result](./results/4styles_result.png)
 
 
 with pearson positive and negative
@@ -44,8 +44,8 @@ with pearson positive and negative
 
 you can see the image is tring to avoid noise pattern
 
-![style](./results/Rectangle_Style.png)
+![style](./results/rectangle_style.png)
 
-![style](./results/Rectangle_negative.png)
+![style](./results/rectangle_negative.png)
 
 
