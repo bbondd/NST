@@ -10,7 +10,7 @@ NST Presentation.pptx is the presentation file
 
 
 Base algorithm
-![content](./results/algorithm.png)
+![content](./pictures/algorithm.png)
 
 
 
