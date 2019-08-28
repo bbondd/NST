@@ -27,7 +27,7 @@ Base style image
 
 
 <br  /><br  /><br  /><br  /><br  />
-These are the examples of different content matrix and style distance metric(Style loss)
+These are the examples of different content matrix(content loss) and style distance metric(style loss)
 
 ![gram](./results/gram_matrix.png)
 
